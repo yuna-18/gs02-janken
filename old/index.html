@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神社へ行こう！</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body onselectstart="return false;" onmousedown="return false;">
+  <main>
+    <div class="bg">
+      <div class="bg__container">
+        <img src="img/opening.png" alt="神社">
+      </div>
+      <div class="contents__wrapper">
+        <div class="pay__container is-active">
+          <div class="text__outer">
+            <p>お賽銭を入れよう！</p>
+          </div>
+          <div class="btn__outer">
+            <button type="button" name="pay-0" value="0円" class="btn pay-btn no-pay">入れない</button>
+            <button type="button" name="pay-10" value="10円" class="btn pay-btn"><img src="img/money_10.png" alt="10円"></button>
+            <button type="button" name="pay-50" value="50円" class="btn pay-btn"><img src="img/money_50.png" alt="50円"></button>
+            <button type="button" name="pay-100" value="100円" class="btn pay-btn"><img src="img/money_100.png" alt="100円"></button>
+            <button type="button" name="pay-1000" value="1000円" class="btn pay-btn"><img src="img/money_1000_kitazato.png" alt="1000money_1000_kitazato.png円"></button>
+          </div>
+        </div>
+        <div class="dialog__container">
+          <div class="dialog__outer">
+            <div class="close-btn dialog-btn">✕</div>
+            <div class="dialog__content">
+              <p>この金額でよろしいですか？</p>
+              <div class="btn__outer">
+                <button class="dialog-btn yes">はい</button>
+                <button class="dialog-btn no">いいえ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle__container">
+          <div class="npc__outer">
+            <div class="chara__inner">
+              <img src="img/god.png" alt="神様">
+            </div>
+            <div class="talk__inner">
+              <p class="talk-text"></p>
+            </div>
+            <div class="npc-choice__inner"></div>
+            <div class="hp__inner">
+              <p>HP</p>
+              <p class="hp-num__npc"></p>
+            </div>
+          </div>
+
+          <div class="hp__inner player">
+            <p>HP</p>
+            <p class="hp-num__player"></p>
+          </div>
+          <div class="btn__outer">
+            <button type="button" name="player-gu" value="グー" class="btn battle-btn player"><img src="img/janken_gu.png" alt="グー"></button>
+            <button type="button" name="player-choki" value="チョキ" class=" btn battle-btn player"><img src="img/janken_choki.png" alt="チョキ"></button>
+            <button type="button" name="player-pa" value="パー" class=" btn battle-btn player"><img src="img/janken_pa.png" alt="パー"></button>
+          </div>
+        </div>
+
+        <div class="text__container">
+          <p class="ready"></p>
+          <p class="result"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>

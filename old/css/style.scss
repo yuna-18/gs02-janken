@@ -1,0 +1,380 @@
+// ---common---
+img {
+  display: block;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
+main {
+  width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  .bg {
+    background-image: url(../img/opening__bg.png);
+    width: 100%;
+    height: 100vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+
+    .bg__container {
+      position: absolute;
+      width: 750px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -95px;
+    }
+  }
+}
+
+.pay__container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px 60px;
+  opacity: 0;
+  visibility: hidden;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .text__outer {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn__outer {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 45px;
+    width: fit-content;
+    margin-top: 20px;
+
+    button {
+
+      &.pay-btn {
+        width: 100px;
+
+        &.no-pay {
+          color: red;
+          font-weight: bold;
+          font-size: 20px;
+          border: 2px solid #000;
+          border-radius: 50%;
+          padding: 5px;
+        }
+
+        &:nth-of-type(5) {
+          width: 150px;
+        }
+      }
+    }
+  }
+}
+
+.dialog__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 50%);
+  padding: 40px 20px;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+  z-index: 100;
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dialog__outer {
+    position: relative;
+    width: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 13px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .dialog__content {
+      background: #fff;
+      width: 600px;
+      padding: 30px 40px;
+
+      .btn__outer {
+        display: flex;
+        width: fit-content;
+        margin: 0 auto;
+        margin-top: 20px;
+
+        .dialog-btn {
+          width: 100px;
+          height: 40px;
+
+          & + .dialog-btn {
+            margin-left: 30px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.battle__container {
+  position: absolute;
+  width: 100%;
+
+  .npc__outer {
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      transition: .3s;
+    }
+
+    .chara__inner {
+      position: absolute;
+      width: 300px;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .talk__inner {
+      position: absolute;
+      // display: inline-block;
+      padding: 0px 5px;
+      width: 450px;
+      height: 225px;
+      line-height: 150px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: #fff;
+      border-radius: 50%;
+      top: 100px;
+      left: 60%;
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s;
+
+      &.is-active {
+        opacity: 1;
+        transition: .3s;
+        visibility: visible;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -27px;
+        margin-top: -15px;
+        border: 15px solid transparent;
+        border-right: 15px solid #fff;
+        z-index: 0;
+      }
+
+      .talk-text {
+        font-size: 16px;
+        line-height: 2;
+
+        span {
+          color: red;
+          font-size: 24px;
+        }
+      }
+    }
+    
+    .npc-choice__inner {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: 100px;
+      left: 150px;
+      
+      .battle-btn.npc {
+        opacity: 0;
+        visibility: hidden;
+        
+        &.is-active {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    
+    .hp__inner {
+      border: 5px solid navy;
+      background-color: #fff;
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 100px;
+      right: 150px;
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s;
+      
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+        transition: .3s;
+      }
+      p {
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 2;
+        color: navy;
+        &:nth-of-type(1) {
+          margin-top: 25px;
+        }
+        
+        &.hp-num__npc {
+          font-size: 40px;
+        }
+      }
+    }
+    .battle-btn.npc {
+      background-color: navy;
+      border-radius: 50%;
+      padding: 30px;
+    }
+  }
+  
+  
+  .hp__inner.player {
+    border: 5px solid red;
+    background-color: #fff;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 500px;
+    left: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      transition: .3s;
+    }
+    p {
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 2;
+      color: red;
+      &:nth-of-type(1) {
+        margin-top: 25px;
+      }
+      
+      &.hp-num__player {
+        font-size: 40px;
+      }
+    }
+  }
+
+  .btn__outer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-top: 700px;//todo 数値はよう調整
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+
+    &.is-active {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    
+    .battle-btn {
+      width: 200px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 50%;
+      
+      &.is-select {
+        background-color: red;
+      }
+      
+      &:hover {
+        background-color: red;
+      }
+
+      & + .battle-btn {
+        margin-left: 100px;
+      }
+    }
+  }
+}
+
+.text__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: .3s;
+  }
+  
+  p {
+    font-size: 110px;
+    font-weight: bold;
+    
+    &.ready {
+      font-size: 100px;
+    }
+  }
+}
