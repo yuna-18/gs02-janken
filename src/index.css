@@ -1,0 +1,385 @@
+img {
+  display: block;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.bg__wrapper {
+  width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg__wrapper .bg {
+  background-image: url(./assets/img/opening__bg.png);
+  width: 1440px;
+  height: 100vh;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg__wrapper .bg .bg__container {
+  position: absolute;
+  width: 750px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -95px;
+}
+
+.pay__container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px 60px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.pay__container.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pay__container .text__outer {
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pay__container .btn__outer {
+  display: flex;
+  justify-content: space-between;
+  -moz-column-gap: 45px;
+  column-gap: 45px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 20px;
+}
+
+.pay__container .btn__outer button.pay-btn {
+  width: 100px;
+}
+
+.pay__container .btn__outer button.pay-btn.no-pay {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.pay__container .btn__outer button.pay-btn:nth-of-type(5) {
+  width: 150px;
+}
+
+.dialog__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px 20px;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.dialog__container.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog__container .dialog__outer {
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dialog__container .dialog__outer .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 13px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.dialog__container .dialog__outer .dialog__content {
+  background: #fff;
+  width: 600px;
+  padding: 30px 40px;
+}
+
+.dialog__container .dialog__outer .dialog__content .btn__outer {
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.dialog__container .dialog__outer .dialog__content .btn__outer .dialog-btn {
+  width: 100px;
+  height: 40px;
+}
+
+.dialog__container .dialog__outer .dialog__content .btn__outer .dialog-btn + .dialog-btn {
+  margin-left: 30px;
+}
+
+.battle__container {
+  position: absolute;
+  width: 100%;
+}
+
+.battle__container .npc__outer {
+  position: relative;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.battle__container .npc__outer.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s;
+}
+
+.battle__container .npc__outer .chara__inner {
+  position: absolute;
+  width: 300px;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.battle__container .npc__outer .talk__inner {
+  position: absolute;
+  padding: 0px 5px;
+  width: 450px;
+  height: 225px;
+  line-height: 150px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 100px;
+  left: 60%;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.battle__container .npc__outer .talk__inner.is-active {
+  opacity: 1;
+  transition: 0.3s;
+  visibility: visible;
+}
+
+.battle__container .npc__outer .talk__inner::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -27px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #fff;
+  z-index: 0;
+}
+
+.battle__container .npc__outer .talk__inner .talk-text {
+  font-size: 16px;
+  line-height: 2;
+}
+
+.battle__container .npc__outer .talk__inner .talk-text span {
+  color: red;
+  font-size: 24px;
+}
+
+.battle__container .npc__outer .npc-choice__inner {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 100px;
+  left: 150px;
+}
+
+.battle__container .npc__outer .npc-choice__inner .battle-btn.npc {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.battle__container .npc__outer .npc-choice__inner .battle-btn.npc.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.battle__container .npc__outer .hp__inner {
+  border: 5px solid navy;
+  background-color: #fff;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 100px;
+  right: 150px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.battle__container .npc__outer .hp__inner.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s;
+}
+
+.battle__container .npc__outer .hp__inner p {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2;
+  color: navy;
+}
+
+.battle__container .npc__outer .hp__inner p:nth-of-type(1) {
+  margin-top: 25px;
+}
+
+.battle__container .npc__outer .hp__inner p.hp-num__npc {
+  font-size: 40px;
+}
+
+.battle__container .npc__outer .battle-btn.npc {
+  background-color: navy;
+  border-radius: 50%;
+  padding: 30px;
+}
+
+.battle__container .hp__inner.player {
+  border: 5px solid red;
+  background-color: #fff;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 500px;
+  left: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.battle__container .hp__inner.player.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s;
+}
+
+.battle__container .hp__inner.player p {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2;
+  color: red;
+}
+
+.battle__container .hp__inner.player p:nth-of-type(1) {
+  margin-top: 25px;
+}
+
+.battle__container .hp__inner.player p.hp-num__player {
+  font-size: 40px;
+}
+
+.battle__container .btn__outer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 700px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.battle__container .btn__outer.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.battle__container .btn__outer .battle-btn {
+  width: 200px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.battle__container .btn__outer .battle-btn.is-select {
+  background-color: red;
+}
+
+.battle__container .btn__outer .battle-btn:hover {
+  background-color: red;
+}
+
+.battle__container .btn__outer .battle-btn + .battle-btn {
+  margin-left: 100px;
+}
+
+.text__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.text__container.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s;
+}
+
+.text__container p {
+  font-size: 110px;
+  font-weight: bold;
+}
+
+.text__container p.ready {
+  font-size: 100px;
+}
