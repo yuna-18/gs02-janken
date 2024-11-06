@@ -1,3 +1,10 @@
+#root, .vsc-initialized {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
 img {
   display: block;
   width: 100%;
@@ -25,10 +32,11 @@ button {
   overflow: hidden;
 }
 
-.bg__wrapper .bg {
+.bg__container {
   background-image: url(./assets/img/opening__bg.png);
   width: 1440px;
   height: 100vh;
+  background-position: top center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   margin: 0 auto;
@@ -36,12 +44,12 @@ button {
   position: relative;
 }
 
-.bg__wrapper .bg .bg__container {
+.bg__outer {
   position: absolute;
   width: 750px;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -95px;
+  bottom: 10px;
 }
 
 .pay__container {
