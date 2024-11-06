@@ -28,4 +28,70 @@ const Battle = () => {
   )
 }
 
-export default Battle
+export default Battle;
+// // NPCじゃんけんの選択
+// function npcJanken () {
+//   let choice = Math.floor(Math.random() * 3) + 1;
+
+//   switch (choice) {
+//     case 1:
+//       $(".npc-choice__inner").html('<button type="button" name="npc-gu" value="グー" class=" btn battle-btn npc"><img src="img/janken_gu.png" alt="グー"></button>');
+//       break;
+//     case 2:
+//       $(".npc-choice__inner").html('<button type="button" name="npc-choki" value="チョキ" class="btn battle-btn npc"><img src="img/janken_choki.png" alt="チョキ"></button>');
+//       break;
+//     case 3:
+//       $(".npc-choice__inner").html('<button type="button" name="npc-pa" value="パー" class=" btn battle-btn npc"><img src="img/janken_pa.png" alt="パー"></button>');
+//       break;
+//   }
+// }
+// // 勝ち負け判定
+// function battleJudge (playerChoice, npcChoice) {
+//   if (playerChoice === npcChoice) {
+//     return gameInfo.damage.draw;
+//   } else if (playerChoice !== npcChoice) {
+//     switch (playerChoice) {
+//       case "グー":
+//         switch (npcChoice) {
+//           case "チョキ":
+//             return gameInfo.damage.win;
+//           case "パー":
+//             return gameInfo.damage.lose;
+//         }
+//       case "チョキ":
+//         switch (npcChoice) {
+//           case "パー":
+//             return gameInfo.damage.win;
+//           case "グー":
+//             return gameInfo.damage.lose;
+//         }
+//       case "パー":
+//         switch (npcChoice) {
+//           case "グー":
+//             return gameInfo.damage.win;
+//           case "チョキ":
+//             return gameInfo.damage.lose;
+//         }
+//     }
+//   }
+// }
+
+// function calcDamage (damage) {
+//   // lose
+//   if (damage > 0) {
+//     plHP -= damage;
+//     $(".hp-num__player").text(plHP);
+//     if (plHP <= 0) {
+//       $(".ready").html("");
+//       $(".result").html("YOU LOSE").css("color", "navy");
+//     }
+//     // win
+//   } else if (damage < 0) {
+//     npcHP += damage;
+//     $(".hp-num__npc").text(npcHP);
+//     if (npcHP <= 0) {
+//       $(".ready").html("");
+//       $(".result").html("YOU WIN").css("color", "red");
+//     }
+//   }
+// }
