@@ -175,12 +175,6 @@ button {
   position: relative;
 }
 
-/* .battle__container .npc__outer.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: 0.3s;
-} */
-
 .battle__container .npc__outer .chara__inner {
   position: absolute;
   width: 300px;
@@ -295,12 +289,6 @@ button {
   right: 150px;
 }
 
-/* .battle__container .npc__outer .hp__inner.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: 0.3s;
-} */
-
 .battle__container .hp__inner.npc p {
   font-size: 32px;
   font-weight: bold;
@@ -320,6 +308,8 @@ button {
 .battle__container .battle-btn.npc {
   background-color: navy;
   border-radius: 50%;
+  width: 200px;
+  height: 200px;
   padding: 30px;
 }
 
@@ -331,16 +321,7 @@ button {
   position: absolute;
   top: 500px;
   left: 40px;
-  /* opacity: 0;
-  visibility: hidden;
-  transition: 0.3s; */
 }
-
-/* .battle__container .hp__inner.player.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: 0.3s;
-} */
 
 .battle__container .hp__inner.player p {
   font-size: 32px;
@@ -365,14 +346,7 @@ button {
   margin-top: 700px;
   left: 50%;
   transform: translateX(-50%);
-  /* opacity: 0;
-  visibility: hidden; */
 }
-
-/* .battle__container .btn__outer.is-active {
-  visibility: visible;
-  opacity: 1;
-} */
 
 .battle__container .btn__outer .battle-btn {
   width: 200px;

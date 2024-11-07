@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {GAME_INFO} from "../constants.js";
 import {useMode} from '../contexts/ModeContext';
 import {useBattle} from '../contexts/BattleContext';
@@ -7,6 +7,7 @@ const Battle = () => {
   const {mode, setMode} = useMode(); // modeとsetModeを取得
   // バトル開始のタイミング
   const {battleStart, setBattleStart} = useBattle(); // modeとsetModeを取得
+  const isBattling = useRef(false);
 
 
   const modeData = mode && GAME_INFO[mode] ? GAME_INFO[mode] : null;
@@ -20,17 +21,19 @@ const Battle = () => {
   const [npcTalkText, setNpcTalktext] = useState('');
 
   //じゃんけんぽんのテキスト
-  const [jankenText, setJankenText] = useState("じゃんけん…")
+  const [jankenText, setJankenText] = useState("じゃんけん…");
   const [selectedBtn, setSelectedBtn] = useState(null);
-  const [selectedNPCBtn, setSelectedNPCBtn] = useState(null);
+  // const [selectedNpcBtn, setSelectedNpcBtn] = useState(null);
   const [finish, setFinish] = useState(false);
 
-  // NPC
-  const [npcBtnName, setNPCBtnName] = useState("");
-  const [npcBtnValue, setNPCBtnValue] = useState(null);
-  const [npcBtnSrc, setNPCBtnSrc] = useState("");
-  const [npcBtnAlt, setNPCBtnAlt] = useState("");
-  const [npcBtnVisible, setNPCBtnVisible] = useState(false);
+  // Npc
+  // button属性
+  const [npcBtnName, setNpcBtnName] = useState("");
+  const [npcBtnValue, setNpcBtnValue] = useState(null);
+  const [npcBtnSrc, setNpcBtnSrc] = useState("");
+  const [npcBtnAlt, setNpcBtnAlt] = useState("");
+  // button表示非表示
+  const [npcBtnVisible, setNpcBtnVisible] = useState(false);
 
   // ゲーム前演出進行・値設定
   useEffect(() => {
@@ -74,44 +77,83 @@ const Battle = () => {
   // バトル中の処理
   const Attack = (e) => {
 
-    if (plHP > 0 && npcHP > 0) {
+    if (plHP > 0 && npcHP > 0 && !isBattling.current) {
+      isBattling.current = true;
       setJankenText("じゃんけん…");
       setSelectedBtn(e.currentTarget.value);
-      npcJanken();
-      setJankenText("ぽん！"); // ここで "ぽん！" に変更
-      setNPCBtnVisible(true);
-      
-        // const timeoutId = setTimeout(() => {
-        // }, 500);
+      NpcJanken();
 
-      //   return () => clearTimeout(timeoutId); // クリーンアップ
-      // }, [selectedBtn]); // selectedBtn が変更されたときだけ実行
+      setJankenText("ぽん！"); // ここで "ぽん！" に変更
+      setNpcBtnVisible(true);
+
+      setTimeout(() => {
+        if (plHP > 0 && npcHP > 0) {
+          setJankenText("じゃんけん…");
+          //プレイヤー選択初期化
+          setSelectedBtn(null);
+          isBattling.current = false;
+          // NPCの出す手を非表示
+          setNpcBtnVisible(false);
+          // NPCの出す手を初期化
+          setNpcBtnName("");
+          setNpcBtnValue(null);
+          setNpcBtnSrc("");
+          setNpcBtnAlt("");
+        }
+      }, 2000);
     };
   };
 
-  // NPCのじゃんけんの結果
-  const npcJanken = () => {
+  // selectedBtn と npcBtnValue が揃ったタイミングで Judge 関数を呼び出す
+  useEffect(() => {
+    if (selectedBtn && npcBtnValue !== null) {
+      const timeoutId = setTimeout(() => {
+        Judge(selectedBtn, npcBtnValue);
+      }, 1500);
+
+      return () => clearTimeout(timeoutId); // クリーンアップ
+    }
+  }, [selectedBtn, npcBtnValue]); // selectedBtn と npcBtnValue の変更を監視
+
+  // Npcのじゃんけんの結果
+  const NpcJanken = () => {
     let choice = Math.floor(Math.random() * 3);
 
     switch (choice) {
       case 0:
-        setNPCBtnName("npc-gu");
-        setNPCBtnValue("0");
-        setNPCBtnSrc("img/janken_gu.png");
-        setNPCBtnAlt("グー");
-        return 0;
+        setNpcBtnName("npc-gu");
+        setNpcBtnValue("0");
+        setNpcBtnSrc("img/janken_gu.png");
+        setNpcBtnAlt("グー");
+        break;
       case 1:
-        setNPCBtnName("npc-choki");
-        setNPCBtnValue("1");
-        setNPCBtnSrc("img/janken_choki.png");
-        setNPCBtnAlt("チョキ");
-        return 1;
+        setNpcBtnName("npc-choki");
+        setNpcBtnValue("1");
+        setNpcBtnSrc("img/janken_choki.png");
+        setNpcBtnAlt("チョキ");
+        break;
       case 2:
-        setNPCBtnName("npc-pa");
-        setNPCBtnValue("1");
-        setNPCBtnSrc("img/janken_pa.png");
-        setNPCBtnAlt("パー");
-        return 2;
+        setNpcBtnName("npc-pa");
+        setNpcBtnValue("2");
+        setNpcBtnSrc("img/janken_pa.png");
+        setNpcBtnAlt("パー");
+        break;
+    }
+  };
+
+  const Judge = (selectedBtn, npcBtnValue) => {
+    if (selectedBtn !== npcBtnValue) {
+      // player win
+      if (selectedBtn - npcBtnValue === -1 || selectedBtn - npcBtnValue === 2) {
+        setNpcHP((prevNpcHP) => prevNpcHP - 5);
+        // player lose
+      } else if (selectedBtn - npcBtnValue === 1 || selectedBtn - npcBtnValue === -2) {
+        setPlHP((prevPlHP) => prevPlHP - 5);
+      }
+      // draw
+    } else {
+      setNpcHP((prevNpcHP) => prevNpcHP - 0);
+      setPlHP((prevPlHP) => prevPlHP - 0);
     }
   };
 
@@ -126,7 +168,7 @@ const Battle = () => {
             <p className={`talk-text ${textClass}`} dangerouslySetInnerHTML={{__html: npcTalkText}} />
           </div>
           <div className="npc-choice__inner">
-            <button type="button" name={npcBtnName} value={npcBtnValue} className={`btn battle-btn npc ${npcBtnVisible ? 'is-active' : '' }`}><img src={npcBtnSrc} alt={npcBtnAlt} /></button>
+            <button type="button" name={npcBtnName} value={npcBtnValue} className={`btn battle-btn npc ${npcBtnVisible ? 'is-active' : ''}`}><img src={npcBtnSrc} alt={npcBtnAlt} /></button>
           </div>
         </div>
         <div className={`hp__inner npc ${battleStart ? 'is-active' : ''}`}>
@@ -155,53 +197,6 @@ const Battle = () => {
 };
 
 export default Battle;
-// // NPCじゃんけんの選択
-// function npcJanken () {
-//   let choice = Math.floor(Math.random() * 3) + 1;
-
-//   switch (choice) {
-//     case 1:
-//       $(".npc-choice__inner").html('<button type="button" name="npc-gu" value="グー" class=" btn battle-btn npc"><img src="img/janken_gu.png" alt="グー"></button>');
-//       break;
-//     case 2:
-//       $(".npc-choice__inner").html('<button type="button" name="npc-choki" value="チョキ" class="btn battle-btn npc"><img src="img/janken_choki.png" alt="チョキ"></button>');
-//       break;
-//     case 3:
-//       $(".npc-choice__inner").html('<button type="button" name="npc-pa" value="パー" class=" btn battle-btn npc"><img src="img/janken_pa.png" alt="パー"></button>');
-//       break;
-//   }
-// }
-// // 勝ち負け判定
-// function battleJudge (playerChoice, npcChoice) {
-//   if (playerChoice === npcChoice) {
-//     return gameInfo.damage.draw;
-//   } else if (playerChoice !== npcChoice) {
-//     switch (playerChoice) {
-//       case "グー":
-//         switch (npcChoice) {
-//           case "チョキ":
-//             return gameInfo.damage.win;
-//           case "パー":
-//             return gameInfo.damage.lose;
-//         }
-//       case "チョキ":
-//         switch (npcChoice) {
-//           case "パー":
-//             return gameInfo.damage.win;
-//           case "グー":
-//             return gameInfo.damage.lose;
-//         }
-//       case "パー":
-//         switch (npcChoice) {
-//           case "グー":
-//             return gameInfo.damage.win;
-//           case "チョキ":
-//             return gameInfo.damage.lose;
-//         }
-//     }
-//   }
-// }
-
 // function calcDamage (damage) {
 //   // lose
 //   if (damage > 0) {
