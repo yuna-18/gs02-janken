@@ -230,6 +230,23 @@ button {
 .battle__container .npc__outer .talk__inner .talk-text {
   font-size: 16px;
   line-height: 2;
+  padding: 0 20px;
+}
+
+.battle__container .npc__outer .talk__inner .talk-text.text-hardExtra {
+  margin: 60px 0 0;
+}
+.battle__container .npc__outer .talk__inner .talk-text.text-hard {
+  margin: 70px 0 0;
+}
+.battle__container .npc__outer .talk__inner .talk-text.text-normal {
+  margin: 50px 0 0;
+}
+.battle__container .npc__outer .talk__inner .talk-text.text-easy {
+  margin: 45px 0 0;
+}
+.battle__container .npc__outer .talk__inner .talk-text.easyExtra {
+  margin: 35px 0 0;
 }
 
 .battle__container .npc__outer .talk__inner .talk-text span {

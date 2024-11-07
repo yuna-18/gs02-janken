@@ -1,36 +1,49 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {GAME_INFO} from "../constants.js";
-import { useMode } from '../contexts/ModeContext';
+import {useMode} from '../contexts/ModeContext';
 
 const Battle = () => {
   const {mode, setMode} = useMode(); // modeとsetModeを取得
-  // console.log(mode)
-  // const text = GAME_INFO[mode].text;
-  // const npcHP = GAME_INFO[mode].npcHP;
-  // const plHP = GAME_INFO[mode].plHP;
-  // console.log(text);
-  // console.log(npcHP);
-  // console.log(plHP);
+
+
+  // const PreGame = () => {
+  const modeData = GAME_INFO[mode];
+  const [preGameEffectStart, setPreGameEffectStart] = useState(false); // ゲーム前の演出開始時間を調整
+  const [npcHP, setNpcHP] = useState(0);
+  const [plHP, setPlHP] = useState(0);
+  const textClass = `text-${mode}`; //モードごとにテキスト位置調整
+  const [npcTalkText, setNpcTalktext] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => {
+      setNpcTalktext(modeData.text);
+      setNpcHP(modeData.npc.hp);
+      setPlHP(modeData.player.hp);
+      setPreGameEffectStart(true);
+    }, 1000);
+  }, [mode]);
+
+  // };
 
   return (
     <div className="battle__container">
-      <div className="npc__outer">
+      <div className={`npc__outer ${preGameEffectStart ? 'is-active' : ''}`}>
         <div className="chara__inner">
           <img src="img/god.png" alt="神様" />
         </div>
-        <div className="talk__inner">
-          <p className="talk-text"></p>
+        <div className={`talk__inner ${preGameEffectStart ? 'is-active' : ''}`}>
+          <p className={`talk-text ${textClass}`} dangerouslySetInnerHTML={{__html: npcTalkText}} />
         </div>
         <div className="npc-choice__inner"></div>
         <div className="hp__inner">
           <p>HP</p>
-          <p className="hp-num__npc"></p>
+          <p className="hp-num__npc">{npcHP}</p>
         </div>
       </div>
 
       <div className="hp__inner player">
         <p>HP</p>
-        <p className="hp-num__player"></p>
+        <p className="hp-num__player">{plHP}</p>
       </div>
       <div className="btn__outer">
         <button type="button" name="player-gu" value="グー" className="btn battle-btn player"><img src="img/janken_gu.png" alt="グー" /></button>
