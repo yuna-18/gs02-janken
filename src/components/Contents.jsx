@@ -1,5 +1,4 @@
 import ModeSelect from "./ModeSelect";
-// import Dialog from "./Dialog";
 import Battle from "./Battle";
 import Text from "./Text";
 
@@ -19,12 +18,9 @@ export default Contents;
 // $(function () {
 //   // 進行
 //   $(".dialog-btn.yes").on("click", function () {
-//     // 戦闘準備　セリフ表示
-//     $(".npc__outer, .talk__inner").addClass("is-active");
-
 //     // 戦闘準備画面
 //     setTimeout(function () {
-//     $(".talk__inner").removeClass("is-active");
+//       $(".talk__inner").removeClass("is-active");
 //       $(".battle__container .btn__outer").addClass("is-active");
 //       $(".hp__inner").addClass("is-active");
 //       $(".text__container").addClass("is-active");
