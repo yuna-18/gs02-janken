@@ -1,9 +1,22 @@
+import React from 'react';
+import {GAME_INFO} from "../constants.js";
+import { useMode } from '../contexts/ModeContext';
+
 const Battle = () => {
+  const {mode, setMode} = useMode(); // modeとsetModeを取得
+  // console.log(mode)
+  // const text = GAME_INFO[mode].text;
+  // const npcHP = GAME_INFO[mode].npcHP;
+  // const plHP = GAME_INFO[mode].plHP;
+  // console.log(text);
+  // console.log(npcHP);
+  // console.log(plHP);
+
   return (
     <div className="battle__container">
       <div className="npc__outer">
         <div className="chara__inner">
-          <img src="img/god.png" alt="神様"/>
+          <img src="img/god.png" alt="神様" />
         </div>
         <div className="talk__inner">
           <p className="talk-text"></p>
@@ -20,13 +33,13 @@ const Battle = () => {
         <p className="hp-num__player"></p>
       </div>
       <div className="btn__outer">
-        <button type="button" name="player-gu" value="グー" className="btn battle-btn player"><img src="img/janken_gu.png" alt="グー"/></button>
-        <button type="button" name="player-choki" value="チョキ" className=" btn battle-btn player"><img src="img/janken_choki.png" alt="チョキ"/></button>
-        <button type="button" name="player-pa" value="パー" className=" btn battle-btn player"><img src="img/janken_pa.png" alt="パー"/></button>
+        <button type="button" name="player-gu" value="グー" className="btn battle-btn player"><img src="img/janken_gu.png" alt="グー" /></button>
+        <button type="button" name="player-choki" value="チョキ" className=" btn battle-btn player"><img src="img/janken_choki.png" alt="チョキ" /></button>
+        <button type="button" name="player-pa" value="パー" className=" btn battle-btn player"><img src="img/janken_pa.png" alt="パー" /></button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Battle;
 // // NPCじゃんけんの選択
