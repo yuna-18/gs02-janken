@@ -36,10 +36,10 @@ export const GameProvider = ({ children }) => {
 };
 
 export const useGame = () => {
-  const context = useContext(ModeContext);
+  const context = useContext(GameContext);
 
   if (!context) {
-    throw new Error("useMode must be used within a ModeProvider");
+    throw new Error("useGame must be used within a GameProvider");
   }
 
   return context;

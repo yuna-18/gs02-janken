@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {useMode} from '../contexts/ModeContext';
+import {useMode, useGame} from '../contexts/ModeContext';
 
 const ModeSelect = () => {
   const {mode, setMode} = useMode(); // モード保持modeとsetModeを取得
+  const {game, setGame} = useGame();//バトル画面遷移フラグ
   const [dialog, setDialog] = useState(false);//ダイアログ表示非表示
-  const [game, setGame] = useState(false);//バトル画面遷移フラグ
 
   const ModeChange = (e) => {
     setDialog(true);

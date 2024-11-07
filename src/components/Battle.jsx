@@ -1,13 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {GAME_INFO} from "../constants.js";
-import {useMode} from '../contexts/ModeContext';
+import {useMode, useGame} from '../contexts/ModeContext';
 import {useBattle} from '../contexts/BattleContext';
 
 const Battle = () => {
   const {mode, setMode} = useMode(); // modeとsetModeを取得
+  const {game, setGame} = useGame(); // gameとsetGameを取得
   // バトル開始のタイミング
   const {battleStart, setBattleStart} = useBattle(); // modeとsetModeを取得
   const isBattling = useRef(false);
+  const [isFinished, setIsFinished] = useState(false);
 
 
   const modeData = mode && GAME_INFO[mode] ? GAME_INFO[mode] : null;
@@ -22,14 +24,13 @@ const Battle = () => {
 
   //じゃんけんぽんのテキスト
   const [jankenText, setJankenText] = useState("じゃんけん…");
+  const [resultText, setResultText] = useState("");
   const [selectedBtn, setSelectedBtn] = useState(null);
-  // const [selectedNpcBtn, setSelectedNpcBtn] = useState(null);
-  const [finish, setFinish] = useState(false);
 
   // Npc
   // button属性
   const [npcBtnName, setNpcBtnName] = useState("");
-  const [npcBtnValue, setNpcBtnValue] = useState(null);
+  const [npcBtnValue, setNpcBtnValue] = useState("");
   const [npcBtnSrc, setNpcBtnSrc] = useState("");
   const [npcBtnAlt, setNpcBtnAlt] = useState("");
   // button表示非表示
@@ -39,14 +40,14 @@ const Battle = () => {
   useEffect(() => {
     if (modeData && modeData.delayTime) {
       setTimeout(() => {
-        setStartDelay(modeData.delayTime);
         setNpcTalktext(modeData.text);
+        setStartDelay(modeData.delayTime);
+        setPreGameEffectStart(true);
         setNpcHP(modeData.npc.hp);
         setPlHP(modeData.player.hp);
-        setPreGameEffectStart(true);
-      }, 1000);
+      }, 100);
     }
-  }, [mode]);
+  }, [game]);
 
   // バトル開始前の演出終了後
   useEffect(() => {
@@ -62,7 +63,7 @@ const Battle = () => {
 
   // バトル開始の設定
   useEffect(() => {
-    if (!preGameEffectStart && mode !== "") { // preGameEffectStartがfalseになったらバトルを開始
+    if (!preGameEffectStart && game) { // preGameEffectStartがfalseになったらバトルを開始
 
       const timeoutId = setTimeout(() => {
         setBattleStart(true); // バトルを開始
@@ -122,19 +123,19 @@ const Battle = () => {
     switch (choice) {
       case 0:
         setNpcBtnName("npc-gu");
-        setNpcBtnValue("0");
+        setNpcBtnValue(0);
         setNpcBtnSrc("img/janken_gu.png");
         setNpcBtnAlt("グー");
         break;
       case 1:
         setNpcBtnName("npc-choki");
-        setNpcBtnValue("1");
+        setNpcBtnValue(1);
         setNpcBtnSrc("img/janken_choki.png");
         setNpcBtnAlt("チョキ");
         break;
       case 2:
         setNpcBtnName("npc-pa");
-        setNpcBtnValue("2");
+        setNpcBtnValue(2);
         setNpcBtnSrc("img/janken_pa.png");
         setNpcBtnAlt("パー");
         break;
@@ -143,7 +144,7 @@ const Battle = () => {
 
   const Judge = (selectedBtn, npcBtnValue) => {
     if (selectedBtn !== npcBtnValue) {
-      // player win
+      // Player wins
       if (selectedBtn - npcBtnValue === -1 || selectedBtn - npcBtnValue === 2) {
         setNpcHP((prevNpcHP) => prevNpcHP - 5);
         // player lose
@@ -190,29 +191,10 @@ const Battle = () => {
       </div>
       <div className={`text__container ${battleStart ? 'is-active' : ""}`}>
         <p className="ready">{jankenText}</p>
-        <p className="result"></p>
+        <p className="result">{resultText}</p>
       </div>
     </>
   );
 };
 
 export default Battle;
-// function calcDamage (damage) {
-//   // lose
-//   if (damage > 0) {
-//     plHP -= damage;
-//     $(".hp-num__player").text(plHP);
-//     if (plHP <= 0) {
-//       $(".ready").html("");
-//       $(".result").html("YOU LOSE").css("color", "navy");
-//     }
-//     // win
-//   } else if (damage < 0) {
-//     npcHP += damage;
-//     $(".hp-num__npc").text(npcHP);
-//     if (npcHP <= 0) {
-//       $(".ready").html("");
-//       $(".result").html("YOU WIN").css("color", "red");
-//     }
-//   }
-// }
