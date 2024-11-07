@@ -7,7 +7,7 @@ const Contents = () => {
     <>
       <ModeSelect />
       <Battle />
-      <Text />
+      {/* <Text /> */}
     </>
   );
 };
@@ -17,18 +17,6 @@ export default Contents;
 // // ゲーム進行管理
 // $(function () {
 //   // 進行
-//   $(".dialog-btn.yes").on("click", function () {
-//     // 戦闘準備画面
-//     setTimeout(function () {
-//       $(".talk__inner").removeClass("is-active");
-//       $(".battle__container .btn__outer").addClass("is-active");
-//       $(".hp__inner").addClass("is-active");
-//       $(".text__container").addClass("is-active");
-//       $(".ready").html("じゃんけん…");
-//     }, gameInfo[mode].delayTime);
-//   });
-
-
 //   // 戦闘中
 //   $(".battle-btn.player").on("click", function () {
 //     if (plHP > 0 && npcHP > 0) {
