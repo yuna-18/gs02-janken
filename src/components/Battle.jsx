@@ -1,54 +1,87 @@
 import React, {useState, useEffect} from 'react';
 import {GAME_INFO} from "../constants.js";
 import {useMode} from '../contexts/ModeContext';
+import {useBattle} from '../contexts/BattleContext';
 
 const Battle = () => {
   const {mode, setMode} = useMode(); // modeとsetModeを取得
+  // バトル開始のタイミング
+  const {battleStart, setBattleStart} = useBattle(); // modeとsetModeを取得
 
 
-  // const PreGame = () => {
   const modeData = GAME_INFO[mode];
-  const [preGameEffectStart, setPreGameEffectStart] = useState(false); // ゲーム前の演出開始時間を調整
+  // ゲーム前の演出開始タイミング
+  const [preGameEffectStart, setPreGameEffectStart] = useState(false);
   const [npcHP, setNpcHP] = useState(0);
   const [plHP, setPlHP] = useState(0);
-  const textClass = `text-${mode}`; //モードごとにテキスト位置調整
+  const [startDelay, setStartDelay] = useState(0);
+  //モードごとにテキスト位置調整
+  const textClass = `text-${mode}`;
   const [npcTalkText, setNpcTalktext] = useState('');
 
   useEffect(() => {
+    // ゲーム前演出進行・値設定
     setTimeout(() => {
+      setStartDelay(modeData.delayTime);
       setNpcTalktext(modeData.text);
       setNpcHP(modeData.npc.hp);
       setPlHP(modeData.player.hp);
       setPreGameEffectStart(true);
     }, 1000);
+
   }, [mode]);
 
-  // };
+  // バトル開始前の演出終了後
+  useEffect(() => {
+    if (!preGameEffectStart) return;
+
+    // setTimeoutでstartDelay後にpreGameEffectStartをfalseにする
+    const preGameEffectTimeout = setTimeout(() => {
+      setPreGameEffectStart(false); // 演出終了
+    }, startDelay);
+
+    return () => clearTimeout(preGameEffectTimeout); // クリーンアップ
+  }, [preGameEffectStart, startDelay]);
+
+  // バトル開始の設定
+  useEffect(() => {
+    if (!preGameEffectStart && mode !== "") { // preGameEffectStartがfalseになったらバトルを開始
+
+      const gameStartTimeout = setTimeout(() => {
+        setBattleStart(true); // バトルを開始
+      }, 3000); // 1秒後にbattleStartをtrue
+
+      return () => clearTimeout(gameStartTimeout);
+    }  // クリーンアップ
+  }, [preGameEffectStart, 2000]);
+
 
   return (
     <div className="battle__container">
-      <div className={`npc__outer ${preGameEffectStart ? 'is-active' : ''}`}>
-        <div className="chara__inner">
+      <div className="npc__outer">
+        <div className={`chara__inner  ${(preGameEffectStart || battleStart) ? 'is-active' : ''}`}>
           <img src="img/god.png" alt="神様" />
         </div>
         <div className={`talk__inner ${preGameEffectStart ? 'is-active' : ''}`}>
           <p className={`talk-text ${textClass}`} dangerouslySetInnerHTML={{__html: npcTalkText}} />
         </div>
         <div className="npc-choice__inner"></div>
-        <div className="hp__inner">
-          <p>HP</p>
-          <p className="hp-num__npc">{npcHP}</p>
-        </div>
+      </div>
+      <div className={`hp__inner npc ${battleStart ? 'is-active' : ''}`}>
+        <p>HP</p>
+        <p className="hp-num__npc">{npcHP}</p>
       </div>
 
-      <div className="hp__inner player">
-        <p>HP</p>
-        <p className="hp-num__player">{plHP}</p>
-      </div>
-      <div className="btn__outer">
-        <button type="button" name="player-gu" value="グー" className="btn battle-btn player"><img src="img/janken_gu.png" alt="グー" /></button>
-        <button type="button" name="player-choki" value="チョキ" className=" btn battle-btn player"><img src="img/janken_choki.png" alt="チョキ" /></button>
-        <button type="button" name="player-pa" value="パー" className=" btn battle-btn player"><img src="img/janken_pa.png" alt="パー" /></button>
+      <div className={`player__outer ${battleStart ? 'is-active' : ''}`}>
+        <div className={`hp__inner player`}>
+          <p>HP</p>
+          <p className="hp-num__player">{plHP}</p>
+        </div>
+        <div className={`btn__outer`}>
+          <button type="button" name="player-gu" value="グー" className="btn battle-btn player"><img src="img/janken_gu.png" alt="グー" /></button>
+          <button type="button" name="player-choki" value="チョキ" className=" btn battle-btn player"><img src="img/janken_choki.png" alt="チョキ" /></button>
+          <button type="button" name="player-pa" value="パー" className=" btn battle-btn player"><img src="img/janken_pa.png" alt="パー" /></button>
+        </div>
       </div>
     </div>
   );
