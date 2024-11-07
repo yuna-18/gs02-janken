@@ -47,12 +47,12 @@ export const GAME_INFO = {
   easyExtra: {
     level: 1,
     text: 'せ…千円！？！？<br>間違って入れてしまったのかの？<br>それとも風で飛ばされて…<br>え？自分で入れた？なんということじゃ…<br>これはしっかりもてなしをせねば…！',
-    delayTime: 3000,
+    delayTime: 300,
     npc: {
-      hp: 15,
+      hp: 5,
     },
     player: {
-      hp: 30,
+      hp: 5,
     },
   }
 };
