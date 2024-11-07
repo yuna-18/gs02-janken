@@ -33,7 +33,6 @@ export const GAME_INFO = {
     delayTime: 3000,
     npc: {
       hp: 50,
-
     },
     player: {
       hp: 50,
