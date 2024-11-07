@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
 
 // Contextを作成
-const ModeContext = createContext();
+const ModeContext = React.createContext({
+  mode: "", // デフォルトのmodeを設定
+  setMode: () => {}
+});
+
 
 // コンテキストプロバイダ
 export const ModeProvider = ({ children }) => {

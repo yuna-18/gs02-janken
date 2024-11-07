@@ -1,5 +1,5 @@
 import ModeSelect from "./ModeSelect";
-import Dialog from "./Dialog";
+// import Dialog from "./Dialog";
 import Battle from "./Battle";
 import Text from "./Text";
 
@@ -7,7 +7,6 @@ const Contents = () => {
   return (
     <>
       <ModeSelect />
-      <Dialog />
       <Battle />
       <Text />
     </>
@@ -18,26 +17,8 @@ export default Contents;
 
 // // ゲーム進行管理
 // $(function () {
-//   let offeringMoney = "";
-//   // レベル選択
-//   $(".pay-btn").on("click", function () {
-//     offeringMoney = $(this).val();
-//     $(".dialog__container").addClass("is-active");
-//   });
-
-//   // 進行キャンセル・レベル選択リセット
-//   $(".dialog-btn.close-btn, .dialog-btn.no").on("click", function () {
-//     offeringMoney = "";
-//     $(".dialog__container").removeClass("is-active");
-//   });
-
 //   // 進行
 //   $(".dialog-btn.yes").on("click", function () {
-//     // モード選択非表示・ダイアログ非表示
-//     $(".pay__container").removeClass("is-active");
-//     $(".dialog__container").removeClass("is-active");
-//     // レベル決定
-//     selectStory(offeringMoney);
 //     // 戦闘準備　セリフ表示
 //     $(".npc__outer, .talk__inner").addClass("is-active");
 
