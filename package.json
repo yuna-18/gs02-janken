@@ -3,17 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yuna-18.github.io/gs02-janken/", // 追加
+  "homepage": "https://yuna-18.github.io/gs02-janken/",
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build", // 追加
-    "deploy": "gh-pages -d build", // 追加
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    // 省略
   },
   "dependencies": {
     "react": "^18.2.0",
